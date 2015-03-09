@@ -11,14 +11,19 @@ public enum ExprType {
     ADD_CONCAT("AddConcatExpression", "left", "right"),
 
     /** And operator. Parameters: left, right operands */
-    AND("AndExpression", l("lho", "rho"), l("left", "right")),
+    AND("AndExpression",
+            l("lho", "rho"),
+            l("left", "right"),
+            l("lhs", "rhs")),
 
     /** 
      * Arithmetic expression (-, *, /, % operations). Parameters: left operand, 
      * right operand, operator.
      */
-    ARITHMETIC("ArithmeticExpression", l("lho", "rho", "operator"),
-            l("left", "right", "operation")),
+    ARITHMETIC("ArithmeticExpression",
+            l("lho", "rho", "operator"),
+            l("left", "right", "operation"),
+            l("lhs", "rhs", "operator")),
 
     /** Boolean literal. Implements LiteralExpr interface */
     BOOLEAN_LITERAL("BooleanLiteral"),
@@ -33,7 +38,9 @@ public enum ExprType {
     COMPARISON("ComparisonExpression", "left", "right"),
 
     /** Default to expression. Parameters: left, right operands. */
-    DEFAULT_TO("DefaultToExpression", l("lho", "rho"), l("lhs", "rhs")),
+    DEFAULT_TO("DefaultToExpression",
+            l("lho", "rho"),
+            l("lhs", "rhs")),
 
     /** Dot expression. Parameters: target, key. */
     DOT("Dot", "target", "key"),
@@ -63,13 +70,19 @@ public enum ExprType {
     NUMBER_LITERAL("NumberLiteral"),
 
     /** Or expression. Parameters: left, right operands.*/
-    OR("OrExpression", l("lho", "rho"), l("left", "right")),
+    OR("OrExpression",
+            l("lho", "rho"),
+            l("left", "right"),
+            l("lhs", "rhs")),
 
     /** Parenthetical expression. Parameter: nested expression */
     PARENTHETICAL("ParentheticalExpression", "nested"),
 
     /** Range. Parameters: left, right operands */
-    RANGE("Range", l("lho", "rho"), l("left", "right")),
+    RANGE("Range",
+            l("lho", "rho"),
+            l("left", "right"),
+            l("lhs", "rhs")),
 
     /** String literal. Implements StringExpr interface. */
     STRING_LITERAL("StringLiteral"),
@@ -87,32 +100,42 @@ public enum ExprType {
     GENERIC("");
 
     private String className;
-    private List<String> subExprFields; // FM 2.3.20
-    private List<String> altExprFields; // FM 2.3.19
+    private List<List<String>> exprFields;
 
-    private ExprType(String className, String... exprFields) {
-        this(className, l(exprFields), null);
+    private ExprType(String className) {
+        this(className, l());
     }
 
-    private ExprType(String className, List<String> exprFields, List<String> altFields) {
+    private ExprType(String className, String... exprFields) {
+        this(className, l(l(exprFields)));
+    }
+
+    private ExprType(String className, List<String>... exprFields) {
+        this(className, l(exprFields));
+    }
+
+    private ExprType(String className, List<List<String>> exprFields) {
         this.className = className;
-        this.subExprFields = exprFields;
-        this.altExprFields = altFields;
+        this.exprFields = exprFields;
     }
 
     public String getClassName() {
         return this.className;
     }
 
-    List<String> getSubExprFields() {
-        return this.subExprFields;
+    public List<List<String>> getExprFields() {
+        return exprFields;
     }
 
-    List<String> getAltExprFields() {
-        return this.altExprFields;
+    private static List<String> l() {
+        return Arrays.asList();
     }
 
     private static List<String> l(String... fields) {
+        return Arrays.asList(fields);
+    }
+
+    private static List<List<String>> l(List<String>... fields) {
         return Arrays.asList(fields);
     }
 }
