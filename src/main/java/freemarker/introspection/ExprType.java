@@ -129,11 +129,7 @@ public enum ExprType {
         return Arrays.asList();
     }
 
-    private static List<String> l(String... fields) {
-        return Arrays.asList(fields);
-    }
-
-    private static List<List<String>> l(List<String>... fields) {
+    private static <T> List<T> l(T... fields) {
         return Arrays.asList(fields);
     }
 }
