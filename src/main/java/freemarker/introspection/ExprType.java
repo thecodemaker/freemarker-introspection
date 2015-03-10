@@ -13,8 +13,7 @@ public enum ExprType {
     /** And operator. Parameters: left, right operands */
     AND("AndExpression",
             l("lho", "rho"),
-            l("left", "right"),
-            l("lhs", "rhs")),
+            l("left", "right")),
 
     /** 
      * Arithmetic expression (-, *, /, % operations). Parameters: left operand, 
@@ -22,8 +21,7 @@ public enum ExprType {
      */
     ARITHMETIC("ArithmeticExpression",
             l("lho", "rho", "operator"),
-            l("left", "right", "operation"),
-            l("lhs", "rhs", "operator")),
+            l("left", "right", "operation")),
 
     /** Boolean literal. Implements LiteralExpr interface */
     BOOLEAN_LITERAL("BooleanLiteral"),
@@ -46,7 +44,9 @@ public enum ExprType {
     DOT("Dot", "target", "key"),
 
     /** Dynamic key name. Parameters: target, name expression. */
-    DYNAMIC_KEY_NAME("DynamicKeyName", "target", "nameExpression"),
+    DYNAMIC_KEY_NAME("DynamicKeyName",
+            l("target", "nameExpression"),
+            l("target", "keyExpression")),
 
     /** Exists expression. Parameter: exp */
     EXISTS("ExistsExpression", "exp"),
@@ -72,8 +72,7 @@ public enum ExprType {
     /** Or expression. Parameters: left, right operands.*/
     OR("OrExpression",
             l("lho", "rho"),
-            l("left", "right"),
-            l("lhs", "rhs")),
+            l("left", "right")),
 
     /** Parenthetical expression. Parameter: nested expression */
     PARENTHETICAL("ParentheticalExpression", "nested"),
@@ -81,8 +80,7 @@ public enum ExprType {
     /** Range. Parameters: left, right operands */
     RANGE("Range",
             l("lho", "rho"),
-            l("left", "right"),
-            l("lhs", "rhs")),
+            l("left", "right")),
 
     /** String literal. Implements StringExpr interface. */
     STRING_LITERAL("StringLiteral"),

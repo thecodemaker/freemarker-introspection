@@ -31,6 +31,7 @@ class IntrospectionClassFactory {
             List<String> fields = fieldsList.get(i);
             try {
                 params = tryProps(obj, fields);
+                break;
             } catch (InaccessibleFieldException e) {
                 if (i == fieldsList.size() - 1) {
                     throw e;
